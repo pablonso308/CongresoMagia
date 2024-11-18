@@ -1,13 +1,23 @@
 package org.example.congreso_de_magia;
 
+import org.example.congreso_de_magia.servicios.HechizoServicio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CongresoDeMagiaApplication {
+public class CongresoDeMagiaApplication implements CommandLineRunner {
+
+    @Autowired
+    private HechizoServicio hechizoServicio;
 
     public static void main(String[] args) {
         SpringApplication.run(CongresoDeMagiaApplication.class, args);
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        hechizoServicio.lanzarHechizo("Fuego");
+    }
 }
