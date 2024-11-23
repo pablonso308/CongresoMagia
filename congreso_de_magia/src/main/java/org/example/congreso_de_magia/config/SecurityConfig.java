@@ -8,26 +8,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
-    // Configuración de usuarios en memoria con roles
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Deshabilitar CSRF para simplificar pruebas
-                .authorizeHttpRequests()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin() // Formulario de login por defecto
-                .and()
-                .logout(); // Habilitar logout
+                .csrf(csrf -> csrf.disable()) // Updated CSRF configuration
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin(withDefaults()) // Formulario de login por defecto
+                .logout(withDefaults()); // Habilitar logout
         return http.build();
     }
 
-    // Usuarios en memoria para pruebas
     @Bean
     public AuthenticationManagerBuilder authManager(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -41,7 +40,6 @@ public class SecurityConfig {
         return auth;
     }
 
-    // Codificador de contraseñas
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
