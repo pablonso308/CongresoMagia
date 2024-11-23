@@ -1,5 +1,5 @@
 # CongresoMagia
- link a mi repositorio: 
+ link a mi repositorio: https://github.com/pablonso308/CongresoMagia.git
 ## Resumen
 
 El **Ministerio de Magia** está desarrollando un sistema avanzado para gestionar hechizos y eventos mágicos. Este sistema emplea **Programación Orientada a Aspectos (AOP)** con Spring para abordar preocupaciones transversales como la seguridad, auditoría y gestión de transacciones. El objetivo es garantizar modularidad, eficiencia y capacidad de respuesta, permitiendo la integración y administración de diferentes módulos mágicos.
